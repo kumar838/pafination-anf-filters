@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+</head>
+<body>
+<div class="container">
+  <h2>Basic Table</h2>
+  <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p> 
+  
+  <div class="col-md-12">  
+    <input type="text" placeholder="Search.." [(ngModel)]="mytext">
+  </div>
+  <br>
+  <br>
+  <br>
+  <!-- <div class="checkbox checkbox-primary">
+      <input id="flight_any" type="radio" name="fCarrier" value="highestPriceFirst" [(ngModel)]="fCarrier" value="">
+      <label for="flight_any"> Any </label>
+    </div> -->
+  <div class="checkbox checkbox-primary" *ngFor="let lang of Languagesdata; let i=index">
+    <input id="flight_{{i}}" type="radio" name="langauges"  [(ngModel)]="mytext" value="{{lang.code}}">
+    <label for="flight_{{i}}"> {{lang.name}} </label>
+  </div>
+<!-- 
+  <div class="checkbox" *ngFor="let lang of Languagesdata;let i=index">
+      <input id="flight_{{i}}"type="checkbox" [(ngModel)]="langauges" value="{{lang.code}}">
+    <label for="flight_{{i}}">{{lang.name}}</label>
+      
+  </div> -->
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>country</th>
+        <th>capital</th>
+        <th>language</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let countries of returnJson | allpipes:mytext | mylanguage:langauges | paginate: { 
+    itemsPerPage: pageSize,
+    currentPage: p,
+    totalItems: returnJson.length } ">
+      <tr>
+        <td>{{countries.name}}</td>
+        <td>{{countries.capital}}</td>
+        <td><div *ngFor="let lang of countries.languages">{{lang.name}}</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+  <div>
+    <select  [(ngModel)]="pageSize" class="form-control" style="width:100px" (change)="changePageSize()">
+      <option value="10" selected="selected">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+    </select>
+
+  </div>
+</div>
+</body>
+</html>
+
