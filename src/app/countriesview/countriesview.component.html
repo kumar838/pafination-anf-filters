@@ -34,6 +34,7 @@
   <table class="table table-bordered">
     <thead>
       <tr>
+        <th>S.no</th>
         <th>country</th>
         <th>capital</th>
         <th>language</th>
@@ -42,8 +43,9 @@
     <tbody *ngFor="let countries of returnJson | allpipes:mytext | mylanguage:langauges | paginate: { 
     itemsPerPage: pageSize,
     currentPage: p,
-    totalItems: returnJson.length } ">
+    totalItems: returnJson.length } ; let i=index; ">
       <tr>
+        <td>{{ (p - 1) * pageSize + i +1 }}</td>
         <td>{{countries.name}}</td>
         <td>{{countries.capital}}</td>
         <td><div *ngFor="let lang of countries.languages">{{lang.name}}</div></td>
